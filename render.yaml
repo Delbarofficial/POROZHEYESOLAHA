@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: porozheyesolaha
+    env: python
+    buildCommand: ""
+    startCommand: python POROZHE FINEL.PY

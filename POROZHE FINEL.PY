@@ -7,12 +7,12 @@ import asyncio
 
 nest_asyncio.apply()
 
-# تنظیمات ربات بله
+# تنظیمات
 TELEGRAM_TOKEN = '729864260:v4YYzPGxvatHPCKrnfUr7h4DyDN9ATxgjahyUHxg'
 RPI_URL = 'http://آی‌پی‌رزبری:5000/control?device=light&action=on'
 GEMINI_API_KEY = 'AIzaSyDGw45ZF4KzfBjRy3Qnp9CVVhKzu25amhg'
 
-# مدل زبانی
+# پیکربندی مدل
 configure(api_key=GEMINI_API_KEY)
 model = GenerativeModel("gemini-pro")
 
@@ -29,12 +29,12 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         response = model.generate_content(user_text)
         await update.message.reply_text(response.text)
 
-# اجرا با URL بله
 async def main_async():
-    app = ApplicationBuilder().token('729864260:v4YYzPGxvatHPCKrnfUr7h4DyDN9ATxgjahyUHxg').base_url('https://tapi.bale.ai/').build()
+    app = ApplicationBuilder().token(TELEGRAM_TOKEN).base_url("https://tapi.bale.ai/").build()
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     await app.initialize()
     await app.start()
     await app.updater.start_polling()
 
-await main_async()
+if __name__ == '__main__':
+    asyncio.run(main_async())
